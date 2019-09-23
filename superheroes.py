@@ -54,18 +54,33 @@ class Hero:
         self.abilities.append(ability)
 
 
+# if __name__ == "__main__":
+#     # If you run this file from the terminal
+#     # this block is executed.
+#     ability = Ability("Great Debugging", 50)
+#     ability2 = Ability("Sneaky Hacky", 75)
+#     hero = Hero("Grace Hopper", 200)
+#     hero.add_ability(ability)
+#     hero.add_ability(ability2)
+#     print(hero.abilities)
+
+    def attack(self):
+        for ability in self.abilities:
+            total = 0
+            total += ability.attack()
+        return total
+
+
 if __name__ == "__main__":
     # If you run this file from the terminal
-    # this block is executed.
+    # this block of code is executed.
     ability = Ability("Great Debugging", 50)
-    ability2 = Ability("Sneaky Hacky", 75)
+    another_ability = Ability("Smarty Pants", 90)
     hero = Hero("Grace Hopper", 200)
     hero.add_ability(ability)
-    hero.add_ability(ability2)
-    print(hero.abilities)
+    hero.add_ability(another_ability)
+    print(hero.attack())
 """
-    def attack(self):
-
     def defend(incoming_damage):
 
     def take_damage(damage):
