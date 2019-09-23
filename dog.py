@@ -5,4 +5,10 @@ class Dog:
         self.breed = breed
 
     def bark(self):
-        print("woof!")
+        print(self.name + " said Woof!")
+
+    def sit(self):
+        print(self.name + " <> Sit")
+
+    def rollover(self):
+        print(self.name + " <> Roll over")
