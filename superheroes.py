@@ -41,13 +41,14 @@ class Hero:
         self.armors = list()
         self.name = name
         self.starting_health = starting_health
-        self.current_health = 100
+        self.current_health = starting_health
 
 
 # if __name__ == "__main__":
 #     my_hero = Hero("Grace Hopper", 200)
 #     print(my_hero.name)
 #     print(my_hero.current_health)
+
 
     def add_ability(self, ability):
         self.abilities.append(ability)
@@ -62,7 +63,6 @@ class Hero:
 #     hero.add_ability(ability)
 #     hero.add_ability(ability2)
 #     print(hero.abilities)
-
 
     def attack(self):
         total = 0
@@ -81,7 +81,6 @@ class Hero:
 #     hero.add_ability(another_ability)
 #     print(hero.attack())
 
-
     def add_armor(self, armor):
         self.armors.append(armor)
 
@@ -89,26 +88,37 @@ class Hero:
         total = 0
         for piece in self.armors:
             total += piece.block()
-            # added the total damage taken after you block the damage
-            total_taken = damage_amt - total
         # return total  #returns ONLY YOUR BLOCK DAMAGE
-        return total_taken
+        return total
+
+
+# if __name__ == "__main__":
+#     # If you run this file from the terminal
+#     # this block of code is executed.
+
+#     armor = Armor("shield", 20)
+#     another_armor = Armor("bigger shield", 30)
+#     hero = Hero("Marty Metoo", 180)
+#     hero.add_armor(armor)
+#     hero.add_armor(another_armor)
+#     print(hero.defend(40))
+
+
+    def take_damage(self, damage):
+        self.current_health -= self.defend(damage)
 
 
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block of code is executed.
 
-    armor = Armor("shield", 20)
-    another_armor = Armor("bigger shield", 30)
-    hero = Hero("Marty Metoo", 180)
-    hero.add_armor(armor)
-    hero.add_armor(another_armor)
-    print(hero.defend(40))
-
+    hero = Hero("Grace Hopper", 200)
+    shield = Armor("Shield", 50)
+    hero.add_armor(shield)
+    hero.take_damage(50)
+    print(hero.name)
+    print(hero.current_health)
 """
-    def take_damage(damage):
-
     def is_alive(self):
 
     def fight(opponent):
