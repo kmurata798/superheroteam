@@ -111,12 +111,12 @@ class Hero:
 #     # If you run this file from the terminal
 #     # this block of code is executed.
 
-#     hero = Hero("Grace Hopper", 200)
-#     shield = Armor("Shield", 50)
-#     hero.add_armor(shield)
-#     hero.take_damage(50)
-#     print(hero.name)
-#     print(hero.current_health)
+    hero = Hero("Grace Hopper", 200)
+    shield = Armor("Shield", 50)
+    hero.add_armor(shield)
+    hero.take_damage(50)
+    print(hero.name)
+    print(hero.current_health)
 
     def is_alive(self):
         if self.current_health <= 0:
