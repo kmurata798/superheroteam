@@ -49,6 +49,7 @@ class Hero:
 #     print(my_hero.name)
 #     print(my_hero.current_health)
 
+
     def add_ability(self, ability):
         self.abilities.append(ability)
 
@@ -62,7 +63,6 @@ class Hero:
 #     hero.add_ability(ability)
 #     hero.add_ability(ability2)
 #     print(hero.abilities)
-
 
     def attack(self):
         total = 0
@@ -80,7 +80,6 @@ class Hero:
 #     hero.add_ability(ability)
 #     hero.add_ability(another_ability)
 #     print(hero.attack())
-
 
     def add_armor(self, armor):
         self.armors.append(armor)
@@ -104,19 +103,21 @@ class Hero:
 #     hero.add_armor(another_armor)
 #     print(hero.defend(40))
 
+
     def take_damage(self, damage):
         self.current_health -= self.defend(damage)
+
 
 # if __name__ == "__main__":
 #     # If you run this file from the terminal
 #     # this block of code is executed.
 
-    hero = Hero("Grace Hopper", 200)
-    shield = Armor("Shield", 50)
-    hero.add_armor(shield)
-    hero.take_damage(50)
-    print(hero.name)
-    print(hero.current_health)
+#     hero = Hero("Grace Hopper", 200)
+#     shield = Armor("Shield", 50)
+#     hero.add_armor(shield)
+#     hero.take_damage(50)
+#     print(hero.name)
+#     print(hero.current_health)
 
     def is_alive(self):
         if self.current_health <= 0:
@@ -148,17 +149,36 @@ class Hero:
                 #     print(hero.is_alive())
 
 
-if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block is executed.
-    hero1 = Hero("Wonder Woman")
-    hero2 = Hero("Dumbledore")
-    ability1 = Ability("Super Speed", 300)
-    ability2 = Ability("Super Eyes", 130)
-    ability3 = Ability("Wizard Wand", 80)
-    ability4 = Ability("Wizard Beard", 20)
-    hero1.add_ability(ability1)
-    hero1.add_ability(ability2)
-    hero2.add_ability(ability3)
-    hero2.add_ability(ability4)
-    hero1.fight(hero2)
+class Weapon(Ability):
+
+    def attack(self):
+        return random.randint(self.max_damage//2, self.max_damage)
+
+
+class Team:
+    def __init__(self, name):
+        self.name = name
+        self.heroes = []
+    ''' Initialize your team with its team name
+    '''
+    # Implement this constructor by assigning the name and heroes, which should be an empty list
+
+    def add_hero(self, hero):
+        self.heroes.append(hero)
+
+    def remove_hero(self, name):
+        for hero in self.heroes:
+            if hero.name == name:
+                self.heroes.remove(hero)
+                break
+        return 0
+        '''Remove hero from heroes list.
+        If Hero isn't found return 0.
+        '''
+        # Implement this method to remove the hero from the list given their name.
+
+    def view_all_heroes(self):
+        for hero in self.heroes:
+            print(hero.name)
+        '''Prints out all heroes to the console.'''
+        # Loop over the list of heroes and print their names to the terminal.
