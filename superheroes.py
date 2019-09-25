@@ -100,12 +100,12 @@ class Hero:
     def add_armor(self, armor):
         self.armors.append(armor)
 
-    def defend(self, damage_amt):
+    def defend(self, damage_amt=0):
         total = 0
         for piece in self.armors:
             total += piece.block()
         # return total  #returns ONLY YOUR BLOCK DAMAGE
-        return damage_amt - total
+        return abs(damage_amt - total)
 
 
 # if __name__ == "__main__":
@@ -121,7 +121,9 @@ class Hero:
 
 
     def take_damage(self, damage):
-        self.current_health -= self.defend(damage)
+        current_health = self.current_health
+        final_damage = self.defend(damage)
+        self.current_health = current_health - final_damage
 
 
 # if __name__ == "__main__":
@@ -151,8 +153,10 @@ class Hero:
         else:
             if self.is_alive() == True:
                 self.kills += 1
+                opponent.deaths += 1
                 print(self.name, "won!")
             elif opponent.is_alive() == True:
+                opponent.kills += 1
                 self.deaths += 1
                 print(opponent.name, "won!")
 
@@ -177,6 +181,7 @@ class Team:
     def __init__(self, name):
         self.name = name
         self.heroes = []
+
     ''' Initialize your team with its team name
     '''
     # Implement this constructor by assigning the name and heroes, which should be an empty list
@@ -185,14 +190,14 @@ class Team:
         self.heroes.append(hero)
 
     def remove_hero(self, name):
+        '''Remove hero from heroes list.
+        If Hero isn't found return 0.
+        '''
         for hero in self.heroes:
             if hero.name == name:
                 self.heroes.remove(hero)
                 break
         return 0
-        '''Remove hero from heroes list.
-        If Hero isn't found return 0.
-        '''
         # Implement this method to remove the hero from the list given their name.
 
     def view_all_heroes(self):
@@ -208,14 +213,13 @@ class Team:
                     hero.take_damage(enemy.attack())
                     enemy.take_damage(hero.attack())
                     if hero.is_alive() == False:
-                        hero.heroes.remove(hero)
-                        break
+                        self.heroes.remove(hero)
                     elif enemy.is_alive() == False:
-                        enemy.heroes.remove(enemy)
+                        other_team.heroes.remove(enemy)
 
     def revive(self, health=100):
         for hero in self.heroes:
-            hero.current_health = hero.starting_health
+            hero.current_health = health
 
     def stats(self):
         print("\n|| Team Statistics ||")
