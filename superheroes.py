@@ -42,6 +42,8 @@ class Hero:
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
+        self.kills = 0
+        self.deaths = 0
 
 
 # if __name__ == "__main__":
@@ -49,20 +51,34 @@ class Hero:
 #     print(my_hero.name)
 #     print(my_hero.current_health)
 
+    def add_kills(self, num_kills):
+        self.kills = num_kills
+
+    def add_deaths(self, num_deaths):
+        self.deaths = num_deaths
 
     def add_ability(self, ability):
         self.abilities.append(ability)
 
+    def hero_stats(self):
+        print(self.name, ": ")
+        if self.deaths == 0:
+            kdRatio = self.kills // self.deaths
+            print(
+                f"has {self.kills} kills and {self.deaths} deaths! KD Ratio = {kdRatio}")
+        else:
+            print(
+                f"has {self.kills} kills and NO deaths! KD Ratio = {kdRatio}")
 
-# if __name__ == "__main__":
-#     # If you run this file from the terminal
-#     # this block is executed.
-#     ability = Ability("Great Debugging", 50)
-#     ability2 = Ability("Sneaky Hacky", 75)
-#     hero = Hero("Grace Hopper", 200)
-#     hero.add_ability(ability)
-#     hero.add_ability(ability2)
-#     print(hero.abilities)
+        # if __name__ == "__main__":
+        #     # If you run this file from the terminal
+        #     # this block is executed.
+        #     ability = Ability("Great Debugging", 50)
+        #     ability2 = Ability("Sneaky Hacky", 75)
+        #     hero = Hero("Grace Hopper", 200)
+        #     hero.add_ability(ability)
+        #     hero.add_ability(ability2)
+        #     print(hero.abilities)
 
     def attack(self):
         total = 0
@@ -134,8 +150,10 @@ class Hero:
 
         else:
             if self.is_alive() == True:
+                self.kills += 1
                 print(self.name, "won!")
             elif opponent.is_alive() == True:
+                self.deaths += 1
                 print(opponent.name, "won!")
 
                 # if __name__ == "__main__":
@@ -182,3 +200,24 @@ class Team:
             print(hero.name)
         '''Prints out all heroes to the console.'''
         # Loop over the list of heroes and print their names to the terminal.
+
+    def attack(self, other_team):
+        for hero in self.heroes:
+            for enemy in other_team.heroes:
+                while hero.is_alive() == True and enemy.is_alive() == True:
+                    hero.take_damage(enemy.attack())
+                    enemy.take_damage(hero.attack())
+                    if hero.is_alive() == False:
+                        hero.heroes.remove(hero)
+                        break
+                    elif enemy.is_alive() == False:
+                        enemy.heroes.remove(enemy)
+
+    def revive(self, health=100):
+        for hero in self.heroes:
+            hero.current_health = hero.starting_health
+
+    def stats(self):
+        print("\n|| Team Statistics ||")
+        for hero in self.heroes:
+            hero.hero_stats()
