@@ -11,7 +11,8 @@ class Ability:
         """
         Hero's ability damage
         """
-        return random.randint(1, self.max_damage)
+        random_attack = random.randint(0, self.max_damage)
+        return random_attack
 
 # TESTING
 # if __name__ == "__main__":
@@ -26,7 +27,7 @@ class Armor:
         self.max_block = max_block
 
     def block(self):
-        return random.randint(1, self.max_block)
+        return random.randint(0, self.max_block)
 
 
 # TESTING
@@ -318,7 +319,7 @@ class Arena:
         '''
         name = input("What will your new ability be called?")
         max_dam = input("what should the max damage be for this ability?")
-        return Ability(name, max_dam)
+        return Ability(name, int(max_dam))
 
         # This method will allow a user to create an ability.
         # Prompt the user for the necessary information to create a new ability object.
@@ -330,7 +331,7 @@ class Arena:
         '''
         name = input("What will this weapon be called?")
         max_dam = input("What should the max damage be for this weapon?")
-        return Weapon(name, max_dam)
+        return Weapon(name, int(max_dam))
 
         # This method will allow a user to create a weapon.
         # Prompt the user for the necessary information to create a new weapon object.
@@ -343,7 +344,7 @@ class Arena:
         name = input("What will this armor be called?")
         max_blocked = input(
             "What should the max damage blocked be for this armor?")
-        return Armor(name, max_blocked)
+        return Armor(name, int(max_blocked))
 
         # This method will allow a user to create a piece of armor.
         #  Prompt the user for the necessary information to create a new armor
@@ -387,10 +388,11 @@ class Arena:
 
     def show_stats(self):
         '''Prints team statistics to terminal.'''
-        print(f"Team One KD Ratio: {self.team_one.stats()}")
-        print(f"Team Two KD Ratio: {self.team_two.stats()}")
+        print(f"Team 1 K/D Ratio: {self.team_one.stats()}")
+        print(f"Team 2 K/D Ratio: {self.team_two.stats()}")
 
         print("Surviving heroes: ")
+
         self.team_one.surviving_heroes()
         self.team_two.surviving_heroes()
 
